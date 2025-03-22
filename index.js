@@ -9,7 +9,7 @@ const token = process.env.BOT_TOKEN; // BOT TOKEN của bạn
 
 // Set Webhook URL (replace with your Render domain)
 const webHookUrl = 'https://telegram-auto-reply-bot.onrender.com/';
-bot.setWebHook(webHookUrl);
+bot.setWebHook(webHookUrl){});
 
 let users = {};
 
