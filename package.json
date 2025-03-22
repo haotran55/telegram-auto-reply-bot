@@ -1,0 +1,13 @@
+{
+  "name": "telegram-auto-reply-bot",
+  "version": "1.0.0",
+  "description": "A simple Telegram bot for auto-replying messages",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.61.0",
+    "express": "^4.17.1"
+  }
+}
