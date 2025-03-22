@@ -4,12 +4,15 @@ const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const token = process.env.BOT_TOKEN; // BOT TOKEN của bạn
+// BOT TOKEN của bạn
+const token = process.env.BOT_TOKEN || 'YOUR_BOT_TOKEN';
 
+// Khởi tạo bot
+const bot = new TelegramBot(token, { polling: false });
 
 // Set Webhook URL (replace with your Render domain)
-const webHookUrl = 'https://telegram-auto-reply-bot.onrender.com/';
-bot.setWebHook(webHookUrl){});
+const webHookUrl = 'https://telegram-auto-reply-bot.onrender.com/' + token;
+bot.setWebHook(webHookUrl);
 
 let users = {};
 
@@ -32,11 +35,21 @@ app.get('/', (req, res) => {
   res.send('Bot đang chạy!');
 });
 
+app.use(express.json());
+
+// Xử lý webhook
+app.post('/' + token, (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
+});
+
 app.listen(port, () => {
   console.log(`Server đang chạy tại cổng ${port}`);
 });
 
-// Bắt đầu bot
+// Các lệnh bot
+
+// Lệnh start
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
   if (!users[chatId]) {
@@ -57,43 +70,5 @@ bot.onText(/\/sodu/, (msg) => {
 bot.onText(/\/xucsac/, (msg) => {
   const chatId = msg.chat.id;
   const dice = Math.floor(Math.random() * 6) + 1;
-  bot.sendMessage(chatId, `🎲 Kết quả xúc xắc: ${dice}`);
-});
-
-// Lệnh tài xỉu
-bot.onText(/\/taixiu (.+)/, (msg, match) => {
-  const chatId = msg.chat.id;
-  const choice = match[1].toLowerCase();
-  if (!users[chatId]) users[chatId] = { balance: 1000 };
-  if (users[chatId].balance < 100) {
-    return bot.sendMessage(chatId, `Bạn không đủ xu để chơi (cần 100 xu).`);
-  }
-  const dice = Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1;
-  const result = dice <= 6 ? 'xỉu' : 'tài';
-  let message = `🎲 Tổng điểm: ${dice} (${result.toUpperCase()})\n`;
-
-  if (choice === result) {
-    users[chatId].balance += 100;
-    message += `Bạn thắng! +100 xu.\n`;
-  } else {
-    users[chatId].balance -= 100;
-    message += `Bạn thua! -100 xu.\n`;
-  }
-  saveUsers();
-  message += `Số dư hiện tại: ${users[chatId].balance} xu.`;
-  bot.sendMessage(chatId, message);
-});
-
-// Nạp thêm tiền (mua tiền)
-bot.onText(/\/nap (\d+)/, (msg, match) => {
-  const chatId = msg.chat.id;
-  const amount = parseInt(match[1]);
-  if (!users[chatId]) users[chatId] = { balance: 1000 };
-  users[chatId].balance += amount;
-  saveUsers();
-  bot.sendMessage(chatId, `Bạn đã nạp thành công ${amount} xu.\nSố dư mới: ${users[chatId].balance} xu.`);
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  bot.sendMessage(chatId, `Bạn tung được số: ${dice}`);
 });
