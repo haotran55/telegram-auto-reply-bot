@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const token = process.env.BOT_TOKEN; // BOT TOKEN của bạn
-const bot = new TelegramBot(token, { webHook: { port: process.env.PORT || 3000 } });
+
 
 // Set Webhook URL (replace with your Render domain)
 const webHookUrl = 'https://telegram-auto-reply-bot.onrender.com/';
@@ -92,4 +92,8 @@ bot.onText(/\/nap (\d+)/, (msg, match) => {
   users[chatId].balance += amount;
   saveUsers();
   bot.sendMessage(chatId, `Bạn đã nạp thành công ${amount} xu.\nSố dư mới: ${users[chatId].balance} xu.`);
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
