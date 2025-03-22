@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const token = process.env.BOT_TOKEN; // BOT TOKEN của bạn
-const bot = new TelegramBot(token, { polling: true });
+const bot = new TelegramBot(token, { webHook: { port: process.env.PORT || 3000 } });
 
 let users = {};
 
