@@ -10,7 +10,7 @@ def send_welcome(message):
     bot.reply_to(message, "Chào mừng bạn đến với bot!")
 
 @bot.message_handler(commands=['spam'])
-def send_spam(message) 
+def spam(message) 
     bot.reply_to(message, "Lệnh Đang Cập Nhật!")
 
 
