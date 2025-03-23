@@ -1,8 +1,11 @@
 import os
 import telebot
 
-# Lấy token từ biến môi trường
-TOKEN = os.getenv("8127007530:AAG1b4w__xXvIrAr7woZjN8BrC_l3g1hBwI")
+TOKEN = os.getenv("TOKEN")  # Lấy token từ biến môi trường
+
+if not TOKEN:
+    raise ValueError("⚠️ Biến môi trường TOKEN chưa được đặt!")
+
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
