@@ -9,7 +9,7 @@ if not TOKEN:
 
 bot = telebot.TeleBot(TOKEN)
 
-Xóa webhook nếu có
+#Xóa webhook nếu có
 bot.remove_webhook()
 
 # Fake server để Render nhận diện cổng
