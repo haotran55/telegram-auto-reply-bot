@@ -20,6 +20,11 @@ def send_welcome(message):
 def echo_all(message):
     bot.reply_to(message, f"Bạn đã gửi: {message.text}")
 
+@bot.message_handler(func=lambda message: True)
+def debug_message(message):
+    print(f"🔹 Nhận tin nhắn: {message.text}")
+    bot.reply_to(message, "✅ Bot đã nhận tin nhắn!")
+
 # API webhook nhận tin nhắn từ Telegram
 @app.route(f"/{TOKEN}", methods=["POST"])
 def webhook():
