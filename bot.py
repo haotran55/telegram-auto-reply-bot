@@ -40,5 +40,5 @@ def echo_all(message):
 
 # Hàm chạy bot Telegram
 def run_bot():
-    bot.polling(none_stop=True)
+    bot.polling()
 
