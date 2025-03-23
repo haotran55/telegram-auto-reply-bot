@@ -8,10 +8,21 @@ if not TOKEN:
 
 bot = telebot.TeleBot(TOKEN)
 
-
-# Xóa Webhook trước khi chạy getUpdates
+Xóa webhook nếu có
 bot.remove_webhook()
 
+# Fake server để Render nhận diện cổng
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+# Chạy bot trong luồng riêng
+threading.Thread(target=run_bot).start()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)  # Fake port
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, "Chào mừng bạn đến với bot!")
@@ -25,4 +36,7 @@ def spam(message):
 def echo_all(message):
     bot.reply_to(message, message.text)
 
-bot.polling(none_stop=True)
+ Hàm chạy bot Telegram
+def run_bot():
+    bot.polling(none_stop=True)
+
