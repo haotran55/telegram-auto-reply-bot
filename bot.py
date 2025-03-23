@@ -37,7 +37,7 @@ def spam(message):
 def echo_all(message):
     bot.reply_to(message, message.text)
 
- Hàm chạy bot Telegram
+# Hàm chạy bot Telegram
 def run_bot():
     bot.polling(none_stop=True)
 
