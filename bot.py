@@ -21,7 +21,8 @@ def home():
     return "Bot is running!"
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)  # Fake port
+    app.run(host="0.0.0.0", port=10000)  
+    
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, "Chào mừng bạn đến với bot!")
@@ -29,7 +30,6 @@ def send_welcome(message):
 @bot.message_handler(commands=['spam'])
 def spam(message):
     bot.reply_to(message, "Lệnh Đang Cập Nhật!")
-
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
