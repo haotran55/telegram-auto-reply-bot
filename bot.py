@@ -8,6 +8,10 @@ if not TOKEN:
 
 bot = telebot.TeleBot(TOKEN)
 
+
+# Xóa Webhook trước khi chạy getUpdates
+bot.remove_webhook()
+
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, "Chào mừng bạn đến với bot!")
@@ -21,5 +25,4 @@ def spam(message):
 def echo_all(message):
     bot.reply_to(message, message.text)
 
-if __name__ == "__main__":
-    bot.polling()
+bot.polling(none_stop=True)
