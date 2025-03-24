@@ -4,7 +4,8 @@ import threading
 from flask import Flask, request
 
 # Lấy TOKEN từ biến môi trường
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("7920158658:AAGyY9jA2B5Z3_n3vZzzQBDYaJoAddPqZ7s
+")
 if not TOKEN:
     raise ValueError("Chưa thiết lập biến môi trường BOT_TOKEN")
 
